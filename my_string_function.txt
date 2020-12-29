@@ -1,0 +1,95 @@
+#include <stdio.h>
+//模拟实现strncat
+#if 0
+char* my_strncat( char* arr, const char * arr1, int n)
+{
+	char* ret = arr;
+	while (*arr != '\0')
+	{
+		arr++;
+	}
+	for (int i = 0; i < n; i++)
+	{
+		*arr++ = *arr1++;
+	}
+	return ret;
+}
+int main()
+{
+	char arr[30] = "abcdefg";
+	char arr1[] = "higk";
+	my_strncat(arr, arr1, 4);
+	printf("%s",arr);
+	return 0;
+}
+#endif
+
+//模拟实现strncpy
+#if 0
+char *my_strncpy(char * arr1, const char* arr, int n)
+{
+	char* ret = arr1;
+	for (int i = 0; i < n; i++)
+	{
+		*arr1++ = *arr++;
+	}
+	return ret;
+}
+int main()
+{
+	char arr[30] = "abcdefg";
+	char arr1[30] = {0};
+	char * ret=my_strncpy(arr1, arr,4);
+	printf("%s",ret);
+	return 0;
+}
+#endif
+#include <ctype.h>
+//模拟实现atoi
+#if 1
+int my_atoi(char * pr)
+{
+	if (pr == NULL)
+	{
+		printf("输入有误");
+		return 0;
+	}
+	//跳过空格
+	while (isspace(*pr) )
+	{
+		pr++;
+	}
+	//判断正负
+	int sign = 1;
+	if (*pr == '-')
+	{
+		sign = -1;
+	}
+	if (*pr == '+'||*pr=='-')
+	{
+		pr++;
+	}
+	
+	//还原每一位数字
+	int result = 0;
+	while (*pr)
+	{
+		 result = result * 10 + *pr - '0';
+		pr++;
+	}
+	int ret = result * sign;
+	return ret;
+}
+int main()
+{
+	char arr1[] = "123";
+	char arr2[] = "-100";
+	my_atoi(arr1);
+	my_atoi(arr2);
+	int ret = my_atoi(arr1) + my_atoi(arr2);
+	//printf("my_atoi(arr1) = %d	my_atoi(arr2) = %d	ret = %d", my_atoi(arr1), my_atoi(arr2), ret);
+	printf("my_atoi(arr1) = %d	my_atoi(arr2) = %d	ret = %d",
+		my_atoi(arr1), my_atoi(arr2), ret);
+	return 0;
+}
+#endif
