@@ -1,0 +1,66 @@
+模拟实现strncpy
+#include <stdio.h>
+#include <string.h>
+#include <assert.h>
+
+char* my_strncpy(char* dest, char* src, size_t len)
+{
+	assert(NULL != dest && NULL != src);
+	char* ret = dest;
+	while (len--)
+	{
+		*dest = *src;
+		*dest++;
+		*src++;
+	}
+	return ret;
+}
+int main()
+{
+	char arr1[7] = "123456";//src
+	char arr2[5] = "spp";//dest
+	printf("%s\n", my_strncpy(arr1, arr2, 3));
+	return 0;
+}
+
+//找单身狗
+//一个数组中只有两个数字是出现一次，其他所有数字都出现了两次。
+#include <stdio.h>
+#define SIZE(arr1) sizeof(arr1)/sizeof(arr1[0])
+void singledog(int *arr, int len, int *num1, int *num2)
+{
+	int i;
+	int sum = 0;
+	for (i = 0; i < len; i++)
+	{
+		sum ^= *(arr + i);//异或出所有数字
+	}
+	int j;
+	for (j = 0; j < sizeof(int)* 8; j++)//int类型数组的字节数32
+	{
+		if (((sum >> j) & 1) == 1)//说明sum在右移 j 个单位后，二进制不一样
+		{
+			break;
+		}
+	}
+	for (i = 0; i < len; i++)
+	{
+		if (((*(arr + i) >> j) & 1) == 1)
+		{
+			*num1 ^= (*(arr + i));//异或 j 位置为1的一组数字
+		}
+		else
+		{
+			*num2 ^= (*(arr + i));//异或 j 位置为0的一组数字
+		}
+	}
+}
+int main()
+{
+	int arr1[] = { 1, 1, 2, 3, 4, 2, 3, 5, 6, 6 };
+	int num1 = 0;
+	int num2 = 0;
+	singledog(arr1, SIZE(arr1),&num1,&num2);
+	printf("%d %d", num1, num2);
+	return 0;
+}
